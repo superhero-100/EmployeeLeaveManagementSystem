@@ -2,7 +2,7 @@ package com.example.EmployeeLeaveManagementSystem.pojo;
 
 import lombok.*;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -12,9 +12,9 @@ public class LeaveRequest {
 
     private Long id;
 
-    private Date startDate;
+    private LocalDate startDate;
 
-    private Date endDate;
+    private LocalDate endDate;
 
     private String reason;
 

@@ -15,9 +15,9 @@ public class EmployeeDao {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public void save(String name, String email, String designation) {
-        String sql = "INSERT INTO employee (name, email, designation) VALUES (?, ?, ?)";
-        jdbcTemplate.update(sql, name, email, designation);
+    public void save(String name, String email, String designation, Long leaveBalance) {
+        String sql = "INSERT INTO employee (name, email, designation, leave_balance) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql, name, email, designation, leaveBalance);
     }
 
     public void update(String name, String email, String designation, Long leaveBalance, Long id) {
@@ -34,8 +34,6 @@ public class EmployeeDao {
         String sql = "SELECT e.id AS emp_id, e.name, e.email, e.designation, e.leave_balance FROM employee e WHERE e.id = ?";
         return jdbcTemplate.query(sql, (ResultSet rs) -> rs.next() ? Employee.builder().id(rs.getLong("emp_id")).name(rs.getString("name")).email(rs.getString("email")).designation(rs.getString("designation")).leaveBalance(rs.getLong("leave_balance")).leaveRequests(new ArrayList<>()).build() : null, id);
     }
-
-
 
 //    public List<Employee> findAllWithLeaves() {
 //        String sql = "SELECT e.id AS emp_id, e.name, e.email, e.designation, e.leave_balance, " +
@@ -57,7 +55,7 @@ public class EmployeeDao {
 //            return new ArrayList<>(employeeLinkedHashMap.values());
 //        });
 //    }
-//
+
 //    public Employee findEmployeeWithLeaves(Long id) {
 //        String sql = "SELECT e.id AS emp_id, e.name, e.email, e.designation, e.leave_balance, " +
 //                "lr.id AS lr_id, lr.start_date, lr.end_date, lr.reason, lr.status " +
